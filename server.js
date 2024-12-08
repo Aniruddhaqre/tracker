@@ -5,11 +5,22 @@ const cors = require("cors");
 const app = express();
 app.use(cookieParser());
 
+const allowedOrigins = [
+  "https://meek-paprenjak-ad54e5.netlify.app/",
+  "https://flourishing-begonia-e2c13b.netlify.app/",
+];
+
 app.use(
-    cors({
-        origin: "*", // Allow requests from any origin
-        credentials: true, // Allow cookies to be sent with requests
-    })
+  cors({
+      origin: (origin, callback) => {
+          if (!origin || allowedOrigins.includes(origin)) {
+              callback(null, true);
+          } else {
+              callback(new Error("Not allowed by CORS"));
+          }
+      },
+      credentials: true, // Allow cookies
+  })
 );
 
 app.get('/get-id', (req, res) => {
