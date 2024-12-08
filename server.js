@@ -22,7 +22,8 @@ app.get('/get-id', (req, res) => {
       // Set the cookie with SameSite=Lax for local testing
       res.cookie('user_id', userId, {
         httpOnly: true,
-        sameSite: 'None', // Use 'Lax' for local development
+        sameSite: 'None',
+        secure: true // Use 'Lax' for local development
       });
     }
   
